@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#we gonna create a simple menu using while loop
+
+while [[ "$REPLY" != 0 ]]; do
+
+cat << _EOF_
+Please Select:
+	1. Display System Information
+	2. Display Disk Space
+	3. Display Home Space Utilization
+	0. Quit
+_EOF_
+
+read -p "Please Select The Option You Want To Proceed With->"
+
+
+if [[ "$REPLY" =~ ^[0-3]$ ]]; then
+	if [[ "$REPLY" == "1" ]]; then
+		echo -e "\n=== FETCHING SYSTEM INFO ==="
+    	hostnamectl
+    	echo -e "============================\n"
+	elif [[ "$REPLY" == "2" ]]; then
+		echo -e "\n=== FETCHING SYSTEM INFO ==="
+		df -h | awk '{print $1, $2, $3}' | column -t
+		echo -e "============================\n"
+	elif [[ "$REPLY" == "3" ]]; then
+		echo -e "\n=== FETCHING SYSTEM INFO ==="
+		echo "Password Maybe Asked If There Are Files Owned By Root."
+		sudo du -sh ~
+		elif [[ "$REPLY" == "0" ]]; then
+		echo "Exiting From The Program..."
+fi
+else
+	echo "Enter A Valid Input Dumbass...:"
+fi
+done
